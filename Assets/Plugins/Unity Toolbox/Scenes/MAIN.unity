@@ -437,7 +437,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36e3a2d80f49df4a8c84293155d14aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolsList: []
+  poolsList:
+  - tag: Gate
+    pooledObject: {fileID: 1190965748229230415, guid: 76cab88c1be94984b9bae8a874d0df04, type: 3}
+    initialSize: 5
+    destroyOnLevelChange: 0
 --- !u!114 &365161802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +521,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.5
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -601,6 +605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1124052203}
+  - component: {fileID: 1124052204}
   m_Layer: 0
   m_Name: Instances
   m_TagString: Untagged
@@ -623,6 +628,22 @@ Transform:
   m_Father: {fileID: 365161799}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1124052204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124052202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bb34a79deb7f244a0720b7a39fc194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseable: 1
+  IntervalTimer: 0
+  TimeStack: 0
+  FixedTimeStack: 0
 --- !u!1 &2129687011
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,4 +35,7 @@ public enum Message
     ADD_PLAYER_INPUT,
     ENABLE_ABILITY,
     DISABLE_ABILITY,
+    OUT_OF_GATE,
+    PASSED_GATE,
+    GAME_STARTED
 }

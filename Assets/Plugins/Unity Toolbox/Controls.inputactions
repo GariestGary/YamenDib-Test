@@ -6,10 +6,10 @@
             "id": "fd65ad10-3bf4-4586-b5f9-41f607bc8677",
             "actions": [
                 {
-                    "name": "Mouse Position",
-                    "type": "PassThrough",
-                    "id": "af5a2e8d-f17e-4936-bcbc-65fb16265070",
-                    "expectedControlType": "Vector2",
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "4146404d-24dd-4304-b11b-245baa4fd498",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -18,12 +18,34 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "ca4eceb7-0548-448c-849e-f0fa91f41816",
-                    "path": "<Pointer>/position",
+                    "id": "40260b24-59a5-41e6-b88d-cf69197154bc",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touchscreen",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e3d88f1-d5c0-46d4-902e-5132ffda27ac",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse & Keyboard",
-                    "action": "Mouse Position",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "556fc4b2-2cae-439b-8234-3f0ae2100ecb",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -567,6 +589,17 @@
             "name": "Gamepad",
             "bindingGroup": "Gamepad",
             "devices": []
+        },
+        {
+            "name": "Touchscreen",
+            "bindingGroup": "Touchscreen",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
         }
     ]
 }
