@@ -19,27 +19,33 @@ public class GatesSpawner : MonoCached
 
     private Vector3 spawnPoint;
 
+    private WaitForSeconds delayWait;
+    private WaitForSeconds intervalWait;
+
     public override void Rise()
     {
         spawnPoint = new Vector3(game.Right + spawnPointOffset, 0, 0);
         msg.SubscribeForLevel(Message.GAME_STARTED, _ => StartSpawning());
+
+        delayWait = new WaitForSeconds(startDelay);
+        intervalWait = new WaitForSeconds(spawnInterval);
     }
 
     private void StartSpawning()
     {
-        SpawnCoroutine().StartManual();
+        StartCoroutine(SpawnCoroutine());
     }
 
     private IEnumerator SpawnCoroutine()
     {
-        yield return startDelay;
+        yield return delayWait;
 
         while (!game.IsGameOver && game.GameStarted)
         {
             Vector3 point = spawnPoint;
             point.y = Random.Range(minSpawnHeight, maxSpawnHeight);
             pool.Spawn(gatePoolTag, point, Quaternion.identity, null, gateSpeed);
-            yield return spawnInterval;
+            yield return intervalWait;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using VolumeBox.Toolbox;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,8 @@ public class Ball : MonoCached
     [SerializeField] private float jumpVelocity;
     [SerializeField] [Tag] private string outAreaTag;
     [SerializeField] [Tag] private string passAreaTag;
+
+    public UnityEvent OutOfGateEvent;
 
     [Inject] private Messager msg;
     [Inject] private GameManager game;
@@ -52,6 +55,7 @@ public class Ball : MonoCached
     private void Fail()
     {
         msg?.Send(Message.OUT_OF_GATE);
+        OutOfGateEvent?.Invoke();
     }
 
     private void UpdateVelocity()
@@ -92,7 +96,7 @@ public class Ball : MonoCached
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag(outAreaTag))
+        if (col.gameObject.CompareTag(outAreaTag) && !game.IsGameOver)
         {
             Fail();
         }
@@ -100,7 +104,7 @@ public class Ball : MonoCached
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag(passAreaTag))
+        if (other.gameObject.CompareTag(passAreaTag) && !game.IsGameOver)
         {
             msg?.Send(Message.PASSED_GATE);
         }

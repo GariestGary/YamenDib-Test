@@ -58,8 +58,8 @@ public class GameManager : CachedSingleton<GameManager>
     private IEnumerator RestartGameCoroutine()
     {
         gameStarted = false;
-        yield return trvl.LoadSceneCoroutine(trvl.CurrentLevelName);
         currentScore = 0;
+        yield return trvl.LoadSceneCoroutine(trvl.CurrentLevelName);
         isGameOver = false;
     }
 }
