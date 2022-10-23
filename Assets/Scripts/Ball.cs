@@ -51,7 +51,7 @@ public class Ball : MonoCached
 
     private void Fail()
     {
-        msg.Send(Message.OUT_OF_GATE);
+        msg?.Send(Message.OUT_OF_GATE);
     }
 
     private void UpdateVelocity()
@@ -102,7 +102,7 @@ public class Ball : MonoCached
     {
         if (other.gameObject.CompareTag(passAreaTag))
         {
-            msg.Send(Message.PASSED_GATE);
+            msg?.Send(Message.PASSED_GATE);
         }
     }
 }

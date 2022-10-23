@@ -37,5 +37,6 @@ public enum Message
     DISABLE_ABILITY,
     OUT_OF_GATE,
     PASSED_GATE,
-    GAME_STARTED
+    GAME_STARTED,
+    RESTART_GAME
 }

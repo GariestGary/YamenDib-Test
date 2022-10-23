@@ -22,7 +22,7 @@ public class GatesSpawner : MonoCached
     public override void Rise()
     {
         spawnPoint = new Vector3(game.Right + spawnPointOffset, 0, 0);
-        msg.Subscribe(Message.GAME_STARTED, _ => StartSpawning());
+        msg.SubscribeForLevel(Message.GAME_STARTED, _ => StartSpawning());
     }
 
     private void StartSpawning()

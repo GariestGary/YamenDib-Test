@@ -29,7 +29,7 @@ namespace VolumeBox.Toolbox
 		public void Send(Message id, object data = null)
 		{
 			List<Subscriber> listeners = subs.Where(x => x.id == id).ToList();
-			listeners.Concat(levelSubs.Where(x => x.id == id));
+			listeners = listeners.Concat(levelSubs.Where(x => x.id == id)).ToList();
 
 			for (var i = 0; i < listeners.Count; i++)
 			{

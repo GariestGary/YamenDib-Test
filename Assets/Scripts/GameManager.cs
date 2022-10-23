@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VolumeBox.Toolbox;
 
 public class GameManager : CachedSingleton<GameManager>
 {
+    [SerializeField] private string gameSceneName;
     private bool isGameOver;
     private int currentScore;
     private bool gameStarted;
@@ -20,6 +22,8 @@ public class GameManager : CachedSingleton<GameManager>
 
     [Inject] private Messager msg;
     [Inject] private Traveler trvl;
+
+    private AsyncOperation sceneUnload;
 
     public void RecalculateBoundaries()
     {
@@ -38,6 +42,7 @@ public class GameManager : CachedSingleton<GameManager>
         msg.Subscribe(Message.OUT_OF_GATE, _ => OutOfGateHandle());
         msg.Subscribe(Message.PASSED_GATE, _ => currentScore++);
         msg.Subscribe(Message.GAME_STARTED, _ => gameStarted = true);
+        msg.Subscribe(Message.RESTART_GAME, _ => RestartGame());
     }
 
     private void OutOfGateHandle()
@@ -47,6 +52,14 @@ public class GameManager : CachedSingleton<GameManager>
 
     public void RestartGame()
     {
-        trvl.LoadScene(trvl.CurrentLevelName);
+        StartCoroutine(RestartGameCoroutine());
+    }
+
+    private IEnumerator RestartGameCoroutine()
+    {
+        gameStarted = false;
+        yield return trvl.LoadSceneCoroutine(trvl.CurrentLevelName);
+        currentScore = 0;
+        isGameOver = false;
     }
 }

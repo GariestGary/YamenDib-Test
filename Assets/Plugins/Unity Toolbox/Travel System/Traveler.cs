@@ -50,18 +50,17 @@ namespace VolumeBox.Toolbox
                 messager.Send(Message.SCENE_UNLOADING);
                 updater.RemoveObjectsFromUpdate(SceneManager.GetSceneByName(CurrentLevelName).GetRootGameObjects());
                 //unloading scene async operation set
-                unloadingLevel = SceneManager.UnloadSceneAsync(currentLevelName);
+                yield return StartCoroutine(WaitForSceneUnloadCoroutine());
             }
-
-            //loading scene async operation set
-            loadingLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-
-            yield return StartCoroutine(WaitForLoadCoroutine(sceneName));
+            
+            yield return StartCoroutine(WaitForSceneLoadCoroutine(sceneName));
         }
 
-        private IEnumerator WaitForLoadCoroutine(string loadingLevelName)
+        private IEnumerator WaitForSceneLoadCoroutine(string loadingLevelName)
         {
-            while(!IsScenesReady())
+            loadingLevel = SceneManager.LoadSceneAsync(loadingLevelName, LoadSceneMode.Additive);
+
+            while(!loadingLevel.isDone)
             {
                 yield return null;
             }
@@ -69,8 +68,18 @@ namespace VolumeBox.Toolbox
             messager.Send(Message.SCENE_LOADED);
 
             yield return OpenScene(loadingLevelName);
+        }
 
-            yield break;
+        private IEnumerator WaitForSceneUnloadCoroutine()
+        {
+            unloadingLevel = SceneManager.UnloadSceneAsync(currentLevelName);
+
+            while (!unloadingLevel.isDone)
+            {
+                yield return null;
+            }
+            
+            messager.Send(Message.SCENE_UNLOADED);
         }
 
         private IEnumerator OpenScene(string openLevelName)
@@ -145,18 +154,6 @@ namespace VolumeBox.Toolbox
 
                 uiOpened = false;
                 messager.Send(Message.UI_CLOSED);
-            }
-        }
-
-        private bool IsScenesReady()
-        {
-            if(unloadingLevel == null)
-            {
-                return loadingLevel.isDone;
-            }
-            else
-            {
-                return loadingLevel.isDone && unloadingLevel.isDone;
             }
         }
     }

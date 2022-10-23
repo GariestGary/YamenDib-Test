@@ -644,6 +644,7 @@ MonoBehaviour:
   IntervalTimer: 0
   TimeStack: 0
   FixedTimeStack: 0
+  gameSceneName: Game
 --- !u!1 &2129687011
 GameObject:
   m_ObjectHideFlags: 0
